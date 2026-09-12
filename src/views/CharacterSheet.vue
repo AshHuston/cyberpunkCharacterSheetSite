@@ -182,34 +182,36 @@ function setBoxValue(character, property, value) {
 function addTrademark() {
     character.value.trademarks.unshift({
         name: "New Trademark",
-        edges: [""],
-        flaws: [""]
+        features: [""]
     });
 }
-
 
 function removeTrademark(index) {
     character.value.trademarks.splice(index, 1);
 }
 
-
-function addEdge(trademark) {
-    trademark.edges.push("");
+function addTrademarkFeature(trademark) {
+    trademark.features.push("");
 }
 
-
-function removeEdge(trademark, index) {
-    trademark.edges.splice(index, 1);
+function removeTrademarkFeature(trademark, index) {
+    trademark.features.splice(index, 1);
 }
 
-
-function addFlaw(trademark) {
-    trademark.flaws.push("");
+function addEdge() {
+    character.value.edges.push("");
 }
 
+function removeEdge(index) {
+    character.value.edges.splice(index, 1);
+}
 
-function removeFlaw(trademark, index) {
-    trademark.flaws.splice(index, 1);
+function addFlaw() {
+    character.value.flaws.push("");
+}
+
+function removeFlaw(index) {
+    character.value.flaws.splice(index, 1);
 }
 
 onMounted(loadCharacter);
@@ -386,8 +388,11 @@ onMounted(loadCharacter);
 
         <!-- TRADEMARKS -->
         <section>
+
             <div class="section-header">
+
                 <h2>Trademarks</h2>
+
                 <button
                     v-if="editing"
                     class="small-button"
@@ -395,21 +400,26 @@ onMounted(loadCharacter);
                 >
                     + Add Trademark
                 </button>
+
             </div>
+
             <div
                 v-for="(trademark, trademarkIndex) in character.trademarks"
                 :key="trademarkIndex"
                 class="trademark"
             >
-                <!-- Trademark name -->
+
                 <div class="trademark-header">
+
                     <input
                         v-if="editing"
                         v-model="trademark.name"
                     />
+
                     <h3 v-else>
                         {{ trademark.name }}
                     </h3>
+
                     <button
                         v-if="editing"
                         class="delete-button"
@@ -417,74 +427,149 @@ onMounted(loadCharacter);
                     >
                         ×
                     </button>
+
                 </div>
-                <!-- Edges -->
+
                 <div class="trait-section">
+
                     <div class="trait-header">
-                        <strong>Edges</strong>
+
+                        <strong>Features</strong>
+
                         <button
                             v-if="editing"
                             class="small-button"
-                            @click="addEdge(trademark)"
+                            @click="addTrademarkFeature(trademark)"
                         >
                             + Add
                         </button>
+
                     </div>
+
                     <div
-                        v-for="(edge, edgeIndex) in trademark.edges"
-                        :key="edgeIndex"
+                        v-for="(feature, featureIndex) in trademark.features"
+                        :key="featureIndex"
                         class="trait-row"
                     >
+
                         <input
                             v-if="editing"
-                            v-model="trademark.edges[edgeIndex]"
+                            v-model="trademark.features[featureIndex]"
                         />
+
                         <span v-else>
-                            {{ edge }}
+                            {{ feature }}
                         </span>
+
                         <button
                             v-if="editing"
                             class="delete-button"
-                            @click="removeEdge(trademark, edgeIndex)"
+                            @click="removeTrademarkFeature(
+                                trademark,
+                                featureIndex
+                            )"
                         >
                             ×
                         </button>
+
                     </div>
+
                 </div>
-                <!-- Flaws -->
-                <div class="trait-section">
-                    <div class="trait-header">
-                        <strong>Flaws</strong>
-                        <button
-                            v-if="editing"
-                            class="small-button"
-                            @click="addFlaw(trademark)"
-                        >
-                            + Add
-                        </button>
-                    </div>
-                    <div
-                        v-for="(flaw, flawIndex) in trademark.flaws"
-                        :key="flawIndex"
-                        class="trait-row"
-                    >
-                        <input
-                            v-if="editing"
-                            v-model="trademark.flaws[flawIndex]"
-                        />
-                        <span v-else>
-                            {{ flaw }}
-                        </span>
-                        <button
-                            v-if="editing"
-                            class="delete-button"
-                            @click="removeFlaw(trademark, flawIndex)"
-                        >
-                            ×
-                        </button>
-                    </div>
-                </div>
+
             </div>
+
+        </section>
+
+
+        <!-- EDGES -->
+
+        <section>
+
+            <div class="section-header">
+
+                <h2>Edges</h2>
+
+                <button
+                    v-if="editing"
+                    class="small-button"
+                    @click="addEdge"
+                >
+                    + Add Edge
+                </button>
+
+            </div>
+
+            <div
+                v-for="(edge, edgeIndex) in character.edges"
+                :key="edgeIndex"
+                class="trait-row"
+            >
+
+                <input
+                    v-if="editing"
+                    v-model="character.edges[edgeIndex]"
+                />
+
+                <span v-else>
+                    {{ edge }}
+                </span>
+
+                <button
+                    v-if="editing"
+                    class="delete-button"
+                    @click="removeEdge(edgeIndex)"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- FLAWS -->
+
+        <section>
+
+            <div class="section-header">
+
+                <h2>Flaws</h2>
+
+                <button
+                    v-if="editing"
+                    class="small-button"
+                    @click="addFlaw"
+                >
+                    + Add Flaw
+                </button>
+
+            </div>
+
+            <div
+                v-for="(flaw, flawIndex) in character.flaws"
+                :key="flawIndex"
+                class="trait-row"
+            >
+
+                <input
+                    v-if="editing"
+                    v-model="character.flaws[flawIndex]"
+                />
+
+                <span v-else>
+                    {{ flaw }}
+                </span>
+
+                <button
+                    v-if="editing"
+                    class="delete-button"
+                    @click="removeFlaw(flawIndex)"
+                >
+                    ×
+                </button>
+
+            </div>
+
         </section>
 
         <!-- DRIVE -->
@@ -508,47 +593,30 @@ onMounted(loadCharacter);
 
 
 <style scoped>
-
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
-
 
 /* =========================================================
    GLOBAL SHEET
    ========================================================= */
-
 .sheet {
     --bg: #070a0c;
     --panel: #0c1114;
     --panel-light: #10171b;
     --border: #26343a;
-
     --text: #d5e1e4;
     --muted: #718187;
-
     --cyan: #35e0d0;
     --cyan-dark: #123f3d;
-
     --warning: #e5a94a;
     --danger: #e05252;
-
     position: relative;
-
     min-height: 100vh;
-
     box-sizing: border-box;
-
     max-width: 1100px;
     margin: 0 auto;
-
     padding: 3rem;
-
     color: var(--text);
-
-    font-family:
-        "JetBrains Mono",
-        "Courier New",
-        monospace;
-
+    font-family: "JetBrains Mono", "Courier New", monospace;
     background:
         radial-gradient(
             circle at 50% 0%,
@@ -556,26 +624,18 @@ onMounted(loadCharacter);
             transparent 40%
         ),
         var(--bg);
-
     line-height: 1.6;
 }
-
 
 /* =========================================================
    CRT / SCANLINE EFFECT
    ========================================================= */
-
 .sheet::before {
     content: "";
-
     position: fixed;
-
     inset: 0;
-
     pointer-events: none;
-
     z-index: 100;
-
     background:
         repeating-linear-gradient(
             to bottom,
@@ -586,123 +646,76 @@ onMounted(loadCharacter);
         );
 }
 
-
 /* =========================================================
    HEADER
    ========================================================= */
-
 .sheet-header {
     display: flex;
-
     justify-content: space-between;
     align-items: flex-end;
-
     gap: 2rem;
-
     margin-bottom: 3rem;
-
     padding-bottom: 1.25rem;
-
     border-bottom: 1px solid var(--border);
-
     position: relative;
 }
 
-
-/* Little terminal-style indicator */
-
 .sheet-header::before {
     content: "PERSONNEL // PROFILE";
-
     position: absolute;
-
     top: -1.5rem;
     left: 0;
-
     font-size: 0.65rem;
-
     letter-spacing: 0.2em;
-
     color: var(--muted);
 }
 
-
-/* Cyan line underneath */
-
 .sheet-header::after {
     content: "";
-
     position: absolute;
-
     bottom: -1px;
     left: 0;
-
     width: 110px;
-
     height: 1px;
-
     background: var(--cyan);
-
     box-shadow:
         0 0 8px rgba(53, 224, 208, 0.6);
 }
 
-
 .sheet-header h1 {
     margin: 0;
-
     font-size: 2.5rem;
-
     font-weight: 500;
-
     letter-spacing: 0.04em;
-
     color: #eefafa;
-
     text-shadow:
         0 0 12px rgba(53, 224, 208, 0.2);
 }
 
-
 .sheet-header h1::before {
     content: "> ";
-
     color: var(--cyan);
 }
-
 
 /* =========================================================
    BUTTONS
    ========================================================= */
-
 .buttons {
     display: flex;
-
     gap: 0.75rem;
 }
 
-
 button {
     appearance: none;
-
     border: 1px solid var(--border);
-
     background: var(--panel);
-
     color: var(--cyan);
-
     padding: 0.6rem 1rem;
-
     font-family: inherit;
-
     font-size: 0.75rem;
-
     text-transform: uppercase;
-
     letter-spacing: 0.12em;
-
     cursor: pointer;
-
     transition:
         background 0.15s,
         border-color 0.15s,
@@ -710,49 +723,36 @@ button {
         color 0.15s;
 }
 
-
 button::before {
     content: "[ ";
     color: var(--muted);
 }
-
 
 button::after {
     content: " ]";
     color: var(--muted);
 }
 
-
 button:hover:not(:disabled) {
     background: var(--cyan-dark);
-
     border-color: var(--cyan);
-
     box-shadow:
         0 0 12px rgba(53, 224, 208, 0.15);
-
     color: #ffffff;
 }
 
-
 button:disabled {
     opacity: 0.4;
-
     cursor: not-allowed;
 }
-
 
 /* =========================================================
    SECTIONS
    ========================================================= */
-
 section {
     position: relative;
-
     margin-bottom: 2rem;
-
     padding: 1.5rem;
-
     background:
         linear-gradient(
             135deg,
@@ -760,83 +760,55 @@ section {
             transparent
         ),
         var(--panel);
-
     border: 1px solid var(--border);
 }
 
-
-/* Technical corner */
-
 section::before {
     content: "";
-
     position: absolute;
-
     top: -1px;
     left: -1px;
-
     width: 14px;
     height: 14px;
-
     border-top: 2px solid var(--cyan);
     border-left: 2px solid var(--cyan);
 }
 
-
 /* =========================================================
    SECTION HEADINGS
    ========================================================= */
-
 section h2 {
     margin: 0 0 1.25rem;
-
     font-size: 0.75rem;
-
     font-weight: 600;
-
     text-transform: uppercase;
-
     letter-spacing: 0.2em;
-
     color: var(--cyan);
 }
 
-
 section h2::before {
     content: "// ";
-
     color: var(--muted);
 }
-
 
 /* =========================================================
    DESCRIPTION
    ========================================================= */
-
 section p {
     margin: 0;
-
     color: var(--text);
-
     font-size: 0.9rem;
 }
-
 
 /* =========================================================
    CHARACTER IMAGE
    ========================================================= */
-
 .character-image {
     display: grid;
-
     grid-template-columns: 320px 1fr;
-
     gap: 2rem;
-
     align-items: center;
-
     min-height: 350px;
-
     background:
         radial-gradient(
             circle at 15% 50%,
@@ -846,58 +818,35 @@ section p {
         var(--panel);
 }
 
-
-/* Image */
-
 .character-image img {
     display: block;
-
     width: 100%;
     max-width: 320px;
-
     max-height: 450px;
-
     object-fit: cover;
-
     border: 1px solid var(--border);
-
     filter:
         saturate(0.75)
         contrast(1.08);
-
     box-shadow:
         0 0 30px rgba(0, 0, 0, 0.5);
 }
-
-
-/* Image frame */
 
 .character-image img::after {
     content: "";
 }
 
-
-/* No image placeholder */
-
 .no-image {
     width: 300px;
     height: 380px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     border: 1px dashed var(--border);
-
     color: var(--muted);
-
     font-size: 0.7rem;
-
     text-transform: uppercase;
-
     letter-spacing: 0.15em;
-
     background:
         repeating-linear-gradient(
             45deg,
@@ -908,72 +857,47 @@ section p {
         );
 }
 
-
 /* =========================================================
    IMAGE UPLOAD
    ========================================================= */
-
 .image-upload {
     display: flex;
-
     flex-direction: column;
-
     align-items: flex-start;
-
     gap: 1rem;
-
     color: var(--muted);
-
     font-size: 0.7rem;
 }
-
 
 .image-upload::before {
     content: "VISUAL IDENTIFICATION // UPDATE";
-
     color: var(--cyan);
-
     font-size: 0.65rem;
-
     letter-spacing: 0.15em;
 }
 
-
 .image-upload input[type="file"] {
     max-width: 100%;
-
     font-family: inherit;
-
     color: var(--muted);
-
     font-size: 0.7rem;
 }
-
 
 /* =========================================================
    STATS
    ========================================================= */
-
 .stats {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-
     background: transparent;
-
     border: none;
-
     padding: 0;
 }
-
 
 .stats::before {
     display: none;
 }
-
 
 .stats > div {
     position: relative;
@@ -1000,11 +924,9 @@ section p {
     line-height: 1;
 }
 
-
 /* =========================================================
    TRADEMARKS
    ========================================================= */
-
 .trademark {
     margin-top: 1rem;
     padding: 1rem 1.25rem;
@@ -1014,26 +936,15 @@ section p {
 }
 
 .trademark h3 {
-    margin: 0 0 1rem;
+    margin: 0;
     color: #eefafa;
     font-size: 1rem;
     font-weight: 500;
 }
 
-.trademark strong {
-    display: block;
-    margin-top: 0.75rem;
-    margin-bottom: 0.25rem;
-    color: var(--muted);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-}
-
 /* =========================================================
    FORM ELEMENTS
    ========================================================= */
-
 input,
 textarea {
     box-sizing: border-box;
@@ -1053,7 +964,6 @@ textarea {
 input:focus,
 textarea:focus {
     border-color: var(--cyan);
-
     box-shadow:
         0 0 0 1px var(--cyan),
         0 0 12px rgba(53, 224, 208, 0.1);
@@ -1161,17 +1071,14 @@ section > div > span::after {
     display: none;
 }
 
-
 .status-box.marked {
     border-color: var(--cyan);
-
     background:
         linear-gradient(
             135deg,
             rgba(53, 224, 208, 0.12),
             rgba(53, 224, 208, 0.025)
         );
-
     box-shadow:
         inset 0 0 12px rgba(53, 224, 208, 0.08);
 }
@@ -1181,7 +1088,6 @@ section > div > span::after {
         0 0 8px rgba(53, 224, 208, 0.5);
 }
 
-/* Interactive only while editing */
 .status-box:not(:disabled) {
     cursor: pointer;
 }
@@ -1189,160 +1095,111 @@ section > div > span::after {
 .status-box:not(:disabled):hover {
     border-color: var(--cyan);
     background: var(--cyan-dark);
-    box-shadow: 0 0 10px rgba(53, 224, 208, 0.15);
-
-    /* =========================================================
-   TRADEMARK EDITOR
-   ========================================================= */
-
-.section-header {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 1rem;
-
-    margin-bottom: 1.25rem;
+    box-shadow:
+        0 0 10px rgba(53, 224, 208, 0.15);
 }
 
+/* =========================================================
+   TRAIT / TRADEMARK EDITOR
+   ========================================================= */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
 
 .section-header h2 {
     margin: 0;
 }
 
-
 .trademark-header {
     display: flex;
-
     align-items: center;
-
     gap: 0.75rem;
-
     margin-bottom: 1.25rem;
 }
-
 
 .trademark-header input {
     flex: 1;
 }
 
-
 .trademark-header h3 {
     flex: 1;
-
     margin: 0;
 }
-
 
 .trait-section {
     margin-top: 1.25rem;
 }
 
-
 .trait-header {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     margin-bottom: 0.5rem;
 }
 
-
 .trait-header strong {
     color: var(--muted);
-
     font-size: 0.65rem;
-
     text-transform: uppercase;
-
     letter-spacing: 0.15em;
 }
 
-
 .trait-row {
     display: flex;
-
     align-items: center;
-
     gap: 0.5rem;
-
     margin-bottom: 0.4rem;
 }
-
 
 .trait-row input {
     flex: 1;
 }
 
-
 .trait-row span {
     flex: 1;
-
     padding: 0.35rem 0;
-
     color: var(--text);
-
     font-size: 0.8rem;
 }
 
-
-/* Small terminal buttons */
-
 .small-button {
     padding: 0.35rem 0.6rem;
-
     font-size: 0.6rem;
-
     white-space: nowrap;
 }
-
 
 .small-button::before,
 .small-button::after {
     display: none;
 }
 
-
-/* Delete X */
-
 .delete-button {
     width: 28px;
     height: 28px;
-
     padding: 0;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     border: 1px solid var(--border);
-
     color: var(--danger);
-
     font-size: 1rem;
-
     line-height: 1;
 }
-
 
 .delete-button::before,
 .delete-button::after {
     display: none;
 }
 
-
 .delete-button:hover:not(:disabled) {
     border-color: var(--danger);
-
     background: rgba(224, 82, 82, 0.1);
-
     color: #ff7070;
-
     box-shadow:
         0 0 10px rgba(224, 82, 82, 0.15);
-}
 }
 </style>

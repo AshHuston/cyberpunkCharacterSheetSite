@@ -1,25 +1,64 @@
 {
-    "name": "ENTER NAME",
-    "description": "Enter Description",
-    "imageExtension": "png",
-    "hits": 0,
-    "xp": 0,
-    "conditions": [
-        
-    ],
-    "trademarks": [
-        {
-            "name": "Street Kid",
-            "edges": [
-                "Sneak",
-                "Escape"
-            ],
-            "flaws": [
-                "Naive"
-            ]
-        }
-    ],
-    "drive": "Enter Drive.",
-    "stash": 0,
-    "stuntPoints": 0
+  "name": "Fosforous",
+  "description": "Born in New Orleans, Regis Boucher was raised by his grandmother, a local voodoo priest who taught him the old ways of curses, blessings, demons, and angels. Though more fascinated by chrome than mysticism, he never forgot those teachings. After earning enough eddies through small jobs, he underwent facial reconstruction cyberware through BD Heteromechanics, giving himself the face of a dragon and adopting the name Fosforous. Starting with espionage and breaking-and-entering work, he built a network of connections among edgerunners and corpos alike. Now a fixer and occasional participant in the jobs he brokers, Fosforous follows the money wherever it leads, steadily pursuing his transformation into a fully chromed-out borg.",
+  "trademarks": [
+    {
+      "name": "Fixer",
+      "features": [
+        "Smooth Talker",
+        "Read Motives",
+        "Let's Make a Deal",
+        "Head Butt",
+        "Lie",
+        "Underworld Contacts",
+        "Sleight of Hand",
+        "Mixology",
+        "Tobacco Sommelier",
+        "Stand Firm",
+        "Break Stuff"
+      ]
+    },
+    {
+      "name": "Devil's Gift",
+      "features": [
+        "Big",
+        "Muscle Grafts",
+        "Handsome",
+        "Imposing",
+        "Confident",
+        "Card Shark",
+        "Horns and Claws",
+        "Scales (Dermal Plates)",
+        "Poison and Acid Proficiency",
+        "Toxin Scrubber"
+      ]
+    },
+    {
+      "name": "Dragon Face",
+      "features": [
+        "Notice",
+        "HUD",
+        "Intimidating",
+        "Poker Face",
+        "Staredown",
+        "Toxin Filter",
+        "Powerful Jaws"
+      ]
+    }
+  ],
+  "edges": [
+    "Anyone, Anywhere, For the Right Price: Due to extensive contacts, Fosforous has an easier time finding jobs to be done or a person with an answer.",
+    "Listen When I Speak: He may not be of high standing, but no matter who you are, when the dragon speaks, you listen.",
+    "Hell Walks With Me: His appearance strongly discourages those who would take a swing at him.",
+    "Dragon's Bite: Powerful jaws that tend to hold onto whatever enters their mouth."
+  ],
+  "flaws": [
+    "Greedy",
+    "Stands Out in a Crowd",
+    "Noisy"
+  ],
+  "drive": "Make enough to live in luxury!",
+  "hits": 0,
+  "stash": 0,
+  "stuntPoints": 0
 }
