@@ -1,0 +1,24 @@
+services:
+  neon-city-sheets:
+    build:
+      context: .
+
+    container_name: neonCitySheets
+    restart: unless-stopped
+    networks:
+      - proxy
+
+    volumes:
+      - ./characters:/app/characters
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.neoncitysheets.rule=Host(`neoncity.ashhuston.com`)"
+      - "traefik.http.routers.neoncitysheets.entrypoints=websecure"
+      - "traefik.http.routers.neoncitysheets.tls=true"
+      - "traefik.http.routers.neoncitysheets.tls.certresolver=letsencrypt"
+      - "traefik.http.services.neoncitysheets.loadbalancer.server.port=3000"
+
+networks:
+  proxy:
+    external: true
