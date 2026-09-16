@@ -1,0 +1,25 @@
+{
+    "name": "ENTER NAME",
+    "description": "Enter Description",
+    "imageExtension": "png",
+    "hits": 0,
+    "xp": 0,
+    "conditions": [
+        
+    ],
+    "trademarks": [
+        {
+            "name": "Street Kid",
+            "edges": [
+                "Sneak",
+                "Escape"
+            ],
+            "flaws": [
+                "Naive"
+            ]
+        }
+    ],
+    "drive": "Enter Drive.",
+    "stash": 0,
+    "stuntPoints": 0
+}
