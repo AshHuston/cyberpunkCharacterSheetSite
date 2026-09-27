@@ -362,7 +362,7 @@ onMounted(loadCharacter);
                     class="small-button"
                     @click="addEquipment"
                 >
-                    + Add Wquipment
+                    + Add Equipment
                 </button>
 
             </div>
