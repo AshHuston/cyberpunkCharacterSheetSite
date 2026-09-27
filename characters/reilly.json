@@ -7,15 +7,18 @@
     "conditions": [
         
     ],
+    "equipment": [
+        
+    ],
+    "flaws": [
+
+    ],
     "trademarks": [
         {
             "name": "Street Kid",
-            "edges": [
+            "features": [
                 "Sneak",
                 "Escape"
-            ],
-            "flaws": [
-                "Naive"
             ]
         }
     ],

@@ -1,25 +1,65 @@
 {
-    "name": "ENTER NAME",
-    "description": "Enter Description",
+    "name": "Cade Walker",
+    "description": "Grew up in the slums of the city and had dreams of making a change. When he grew older, he either joined this city’s military force or law enforcement in a hopes to make the world a safer place as he experienced the awfulness of it first hand in the slums. But quickly he realized how corrupt the military/law enforcement was so he decided to abandon them and live life as a humble bounty hunter trying to make a real change. \n\nHe would be a gunslinger type of bounty hunter that uses a hand cannon and rides a motorcycle. He has minimal cybernetics, mostly ones that enhance his bounty hunter abilities like agility, tracking, elusiveness, and gunslinging ",
     "imageExtension": "png",
     "hits": 0,
     "xp": 0,
     "conditions": [
         
     ],
+    "flaws": [
+        "On the cops' poopoo list.",
+        "Judges those he sees as “over-modded”." 
+    ],
+    "equipment": [
+        "Heavy Pistol (armor piercing, Accurate)",
+        "Motorcycle (Quiet, Extra Passengers, Fast)",
+        "Interface Chip (Research)",
+        "B&E kit",
+        "Handcuffs",
+        "Stun gun",
+        "Riding leathers"
+    ],
     "trademarks": [
         {
-            "name": "Street Kid",
-            "edges": [
-                "Sneak",
-                "Escape"
-            ],
-            "flaws": [
-                "Naive"
+            "name": "Bounty Hunter",
+            "features": [
+                "(Edge) Track",
+                "(Edge) Follow leads",
+                "Brawl",
+                "Chase",
+                "Intimidate",
+                "Awareness",
+                "Disarm",
+                "Subdue"
+            ]
+        },
+        {
+            "name": "Revhead",
+            "features": [
+                "(Edge) Shoot while driving",
+                "Drive",
+                "Push a machine to its limits",
+                "Machine interface", 
+                "Drive offensive",
+                "Knows a shortcut",
+                "Repair"
+            ]
+        },
+        {
+            "name": "Gunfighter",
+            "features": [
+                "(Edge) Targeter",
+                "Quick Draw",
+                "Guns Akimbo",
+                "Steel-eyed stare",
+                "Custom Pistol",
+                "Dodge",
+                "Flourishes"
             ]
         }
     ],
-    "drive": "Enter Drive.",
+    "drive": "Make a real difference for the people under the thumb of the megacorps.",
     "stash": 0,
     "stuntPoints": 0
 }

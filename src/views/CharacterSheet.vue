@@ -3,7 +3,6 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-
 const character = ref(null);
 
 const loading = ref(true);
@@ -12,11 +11,6 @@ const saving = ref(false);
 const uploading = ref(false);
 
 const selectedImage = ref(null);
-
-
-// --------------------------------------------------
-// Image URL
-// --------------------------------------------------
 
 const imageUrl = () => {
 
@@ -27,13 +21,9 @@ const imageUrl = () => {
     return `/characters/${route.params.character}.${character.value.imageExtension || "webp"}`;
 };
 
-
-// --------------------------------------------------
-// Load character
-// --------------------------------------------------
-
 async function loadCharacter() {
     try {
+        console.log(route.params.character)
         const response = await fetch(
             `/api/characters/${route.params.character}`
         );
@@ -48,21 +38,12 @@ async function loadCharacter() {
     }
 }
 
-
-// --------------------------------------------------
-// Select image
-// --------------------------------------------------
-
 function selectImage(event) {
 
     selectedImage.value =
         event.target.files[0] || null;
 
 }
-
-// --------------------------------------------------
-// Upload image
-// --------------------------------------------------
 
 async function uploadImage() {
 
@@ -122,11 +103,6 @@ async function uploadImage() {
     }
 
 }
-
-
-// --------------------------------------------------
-// Save character
-// --------------------------------------------------
 
 async function saveCharacter() {
 
@@ -204,6 +180,14 @@ function addEdge() {
 
 function removeEdge(index) {
     character.value.edges.splice(index, 1);
+}
+
+function addEquipment() {
+    character.value.equipment.push("");
+}
+
+function removeEquipment(index) {
+    character.value.equipment.splice(index, 1);
 }
 
 function addFlaw() {
@@ -319,7 +303,6 @@ onMounted(loadCharacter);
                         :key="index"
                         class="status-box"
                         :class="{ marked: index <= character.hits }"
-                        :disabled="!editing"
                         @click="setBoxValue(character, 'hits', index)"
                     >
                         <span v-if="index <= character.hits">×</span>
@@ -339,7 +322,6 @@ onMounted(loadCharacter);
                         :key="index"
                         class="status-box"
                         :class="{ marked: index <= character.stash }"
-                        :disabled="!editing"
                         @click="setBoxValue(character, 'stash', index)"
                     >
                         <span v-if="index <= character.stash">×</span>
@@ -359,12 +341,55 @@ onMounted(loadCharacter);
                         :key="index"
                         class="status-box"
                         :class="{ marked: index <= character.stuntPoints }"
-                        :disabled="!editing"
                         @click="setBoxValue(character, 'stuntPoints', index)"
                     >
                         <span v-if="index <= character.stuntPoints">×</span>
                     </button>
                 </div>
+            </div>
+
+        </section>
+
+        <!-- EQUIPMENT -->
+        <section>
+
+            <div class="section-header">
+
+                <h2>Equipment</h2>
+
+                <button
+                    v-if="editing"
+                    class="small-button"
+                    @click="addEquipment"
+                >
+                    + Add Wquipment
+                </button>
+
+            </div>
+
+            <div
+                v-for="(item, itemIndex) in character.equipment"
+                :key="itemIndex"
+                class="trait-row"
+            >
+
+                <input
+                    v-if="editing"
+                    v-model="character.equipment[itemIndex]"
+                />
+
+                <span v-else>
+                    {{ item }}
+                </span>
+
+                <button
+                    v-if="editing"
+                    class="delete-button"
+                    @click="removeEquipment(itemIndex)"
+                >
+                    ×
+                </button>
+
             </div>
 
         </section>
@@ -384,6 +409,106 @@ onMounted(loadCharacter);
                     {{ condition }}
                 </span>
             </div>
+        </section>
+
+        <!-- EDGES -->
+        <!-- <section>
+
+            <div class="section-header">
+
+                <h2>Edges</h2>
+
+                <button
+                    v-if="editing"
+                    class="small-button"
+                    @click="addEdge"
+                >
+                    + Add Edge
+                </button>
+
+            </div>
+
+            <div
+                v-for="(edge, edgeIndex) in character.edges"
+                :key="edgeIndex"
+                class="trait-row"
+            >
+
+                <input
+                    v-if="editing"
+                    v-model="character.edges[edgeIndex]"
+                />
+
+                <span v-else>
+                    {{ edge }}
+                </span>
+
+                <button
+                    v-if="editing"
+                    class="delete-button"
+                    @click="removeEdge(edgeIndex)"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </section> -->
+
+        <!-- FLAWS -->
+        <section>
+
+            <div class="section-header">
+
+                <h2>Flaws</h2>
+
+                <button
+                    v-if="editing"
+                    class="small-button"
+                    @click="addFlaw"
+                >
+                    + Add Flaw
+                </button>
+
+            </div>
+
+            <div
+                v-for="(flaw, flawIndex) in character.flaws"
+                :key="flawIndex"
+                class="trait-row"
+            >
+
+                <input
+                    v-if="editing"
+                    v-model="character.flaws[flawIndex]"
+                />
+
+                <span v-else>
+                    {{ flaw }}
+                </span>
+
+                <button
+                    v-if="editing"
+                    class="delete-button"
+                    @click="removeFlaw(flawIndex)"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- DRIVE -->
+        <section>
+            <h2>Drive</h2>
+            <input
+                v-if="editing"
+                v-model="character.drive"
+            />
+            <p v-else>
+                {{ character.drive }}
+            </p>
         </section>
 
         <!-- TRADEMARKS -->
@@ -478,110 +603,6 @@ onMounted(loadCharacter);
 
             </div>
 
-        </section>
-
-
-        <!-- EDGES -->
-
-        <section>
-
-            <div class="section-header">
-
-                <h2>Edges</h2>
-
-                <button
-                    v-if="editing"
-                    class="small-button"
-                    @click="addEdge"
-                >
-                    + Add Edge
-                </button>
-
-            </div>
-
-            <div
-                v-for="(edge, edgeIndex) in character.edges"
-                :key="edgeIndex"
-                class="trait-row"
-            >
-
-                <input
-                    v-if="editing"
-                    v-model="character.edges[edgeIndex]"
-                />
-
-                <span v-else>
-                    {{ edge }}
-                </span>
-
-                <button
-                    v-if="editing"
-                    class="delete-button"
-                    @click="removeEdge(edgeIndex)"
-                >
-                    ×
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- FLAWS -->
-
-        <section>
-
-            <div class="section-header">
-
-                <h2>Flaws</h2>
-
-                <button
-                    v-if="editing"
-                    class="small-button"
-                    @click="addFlaw"
-                >
-                    + Add Flaw
-                </button>
-
-            </div>
-
-            <div
-                v-for="(flaw, flawIndex) in character.flaws"
-                :key="flawIndex"
-                class="trait-row"
-            >
-
-                <input
-                    v-if="editing"
-                    v-model="character.flaws[flawIndex]"
-                />
-
-                <span v-else>
-                    {{ flaw }}
-                </span>
-
-                <button
-                    v-if="editing"
-                    class="delete-button"
-                    @click="removeFlaw(flawIndex)"
-                >
-                    ×
-                </button>
-
-            </div>
-
-        </section>
-
-        <!-- DRIVE -->
-        <section>
-            <h2>Drive</h2>
-            <input
-                v-if="editing"
-                v-model="character.drive"
-            />
-            <p v-else>
-                {{ character.drive }}
-            </p>
         </section>
     </div>
 
