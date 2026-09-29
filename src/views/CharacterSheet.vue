@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
+const router = useRouter();
 const route = useRoute();
 const character = ref(null);
 
@@ -21,9 +22,17 @@ const imageUrl = () => {
     return `/characters/${route.params.character}.${character.value.imageExtension || "webp"}`;
 };
 
+function openDiceRoller() {
+    router.push({
+        path: "/check",
+        query: {
+            character: route.params.character
+        }
+    });
+}
+
 async function loadCharacter() {
     try {
-        console.log(route.params.character)
         const response = await fetch(
             `/api/characters/${route.params.character}`
         );
@@ -225,6 +234,9 @@ onMounted(loadCharacter);
             </div>
 
             <div class="buttons">
+                <button @click="openDiceRoller">
+                    Dice Roller
+                </button>
                 <button
                     v-if="!editing"
                     @click="editing = true"
