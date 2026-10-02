@@ -109,10 +109,35 @@ app.get("/api/characters/:name", async (req, res) => {
 
 });
 
+app.get("/api/characters", async (req, res) => {
+    try {
+        const files = await fs.readdir(
+            charactersPath
+        );
+
+        const characters = files
+            .filter(file => file.endsWith(".json"))
+            .map(file =>
+                file.replace(".json", "")
+            );
+
+        res.json(characters);
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            error: "Failed to load characters"
+        });
+
+    }
+});
+
 // --------------------------------------------------
 // Get message
 // --------------------------------------------------
-app.post("/api/message/:name", async (req, res) => {
+app.post("/api/message/opened/:name", async (req, res) => {
     try {
         const data = await fs.readFile(messagePath, "utf-8");
         const json = JSON.parse(data);
@@ -142,6 +167,29 @@ app.get("/api/message", async (req, res) => {
         res.status(404).json({
             error: "Unknown error fetching message"
         });
+    }
+});
+
+app.post("/api/message", async (req, res) => {
+    try {
+
+        const json = req.body;
+
+        json.hasOpened = [];
+
+        await fs.writeFile(
+            messagePath,
+            JSON.stringify(json, null, 2)
+        );
+
+        res.sendStatus(200);
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.sendStatus(500);
+
     }
 });
 

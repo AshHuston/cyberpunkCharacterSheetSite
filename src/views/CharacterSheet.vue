@@ -35,20 +35,19 @@ const loadingTransmission = ref(false);
 function openMessage(messageData) {
     message.value = messageData;
     showMessage.value = true;
-    loadingTransmission.value = true;
-    setTimeout(() => {loadingTransmission.value = false;}, 1000);
+    loadingTransmission.value = hasUnreadMessages.value;
+    setTimeout(() => {loadingTransmission.value = false;}, 1200);
     markMessageOpened()
 }
 
 async function markMessageOpened(){
     await fetch(
-        `/api/message/${route.params.character}`,
+        `/api/message/opened/${route.params.character}`,
         {
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
-            },
+            }
         }
     );
     loadMessage();
@@ -252,7 +251,6 @@ onMounted(() => {
 </script>
 
 <template>
-    {{  currentMessage }}
     <!-- Loading -->
     <div v-if="loading">
         Loading...
@@ -277,7 +275,7 @@ onMounted(() => {
 
             <div class="buttons">
                 <button
-                    v-if="currentMessage"
+                    v-if="currentMessage.displayMessage ?? false"
                     class="message-button"
                     :class="{ unread: hasUnreadMessages }"
                     @click="openMessage(currentMessage)"
@@ -1376,6 +1374,7 @@ section > div > span::after {
 
     max-height: 60vh;
     overflow-y: auto;
+    white-space: pre-wrap;
 }
 
 .close-button {
