@@ -55,8 +55,7 @@ const message = ref({
 
 const canSeeText = computed({
     get() {
-        console.log("TEST")
-        return message.value.canSee?.join(", ");
+        return (message.value.canSee || []).join(", ");
     },
 
     set(value) {
