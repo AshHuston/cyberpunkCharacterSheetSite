@@ -817,12 +817,13 @@ button {
     border: 1px solid var(--border);
     background: var(--panel);
     color: var(--cyan);
-    padding: 0.6rem 1rem;
+    padding: 0.6rem .5rem;
     font-family: inherit;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     cursor: pointer;
+    white-space: nowrap;
     transition:
         background 0.15s,
         border-color 0.15s,
