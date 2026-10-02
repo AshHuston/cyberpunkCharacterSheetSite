@@ -12,6 +12,7 @@ const __dirname = path.dirname(__filename);
 
 const charactersPath = path.join(__dirname, "../characters");
 const frontendPath = path.join(__dirname, "../dist");
+const messagePath = path.join(__dirname, "../assets/currentMessage.json");
 
 
 // --------------------------------------------------
@@ -106,6 +107,42 @@ app.get("/api/characters/:name", async (req, res) => {
 
     }
 
+});
+
+// --------------------------------------------------
+// Get message
+// --------------------------------------------------
+app.post("/api/message/:name", async (req, res) => {
+    try {
+        const data = await fs.readFile(messagePath, "utf-8");
+        const json = JSON.parse(data);
+        const player = req.params.name;
+        if (!json.hasOpened.includes(player)) {
+            json.hasOpened.push(player);
+        }
+        await fs.writeFile(messagePath, JSON.stringify(json, null, 2));
+        res.sendStatus(204)
+    } catch {
+        console.error(error);
+        res.status(404).json({
+            error: "Unknown error fetching message"
+        });
+    }
+});
+
+app.get("/api/message", async (req, res) => {
+
+    try {
+        const data = await fs.readFile(
+            messagePath,
+            "utf-8"
+        );
+        res.json(JSON.parse(data));
+    } catch {
+        res.status(404).json({
+            error: "Unknown error fetching message"
+        });
+    }
 });
 
 

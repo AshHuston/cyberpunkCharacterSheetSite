@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
@@ -11,7 +11,48 @@ const editing = ref(false);
 const saving = ref(false);
 const uploading = ref(false);
 
+const currentMessage = ref(null);
+
+const hasUnreadMessages = computed(() =>
+    !!currentMessage.value &&
+    !currentMessage.value.hasOpened?.includes(
+        route.params.character
+    )
+);
+
 const selectedImage = ref(null);
+
+const showMessage = ref(false);
+
+const message = ref(null)
+
+function closeMessage(){
+    showMessage.value = false;
+}
+
+const loadingTransmission = ref(false);
+
+function openMessage(messageData) {
+    message.value = messageData;
+    showMessage.value = true;
+    loadingTransmission.value = true;
+    setTimeout(() => {loadingTransmission.value = false;}, 1000);
+    markMessageOpened()
+}
+
+async function markMessageOpened(){
+    await fetch(
+        `/api/message/${route.params.character}`,
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }
+    );
+    loadMessage();
+}
 
 const imageUrl = () => {
 
@@ -183,14 +224,6 @@ function removeTrademarkFeature(trademark, index) {
     trademark.features.splice(index, 1);
 }
 
-function addEdge() {
-    character.value.edges.push("");
-}
-
-function removeEdge(index) {
-    character.value.edges.splice(index, 1);
-}
-
 function addEquipment() {
     character.value.equipment.push("");
 }
@@ -207,10 +240,19 @@ function removeFlaw(index) {
     character.value.flaws.splice(index, 1);
 }
 
-onMounted(loadCharacter);
+async function loadMessage(){
+    const response = await fetch(`/api/message`);
+    currentMessage.value = await response.json()
+}
+
+onMounted(() => {
+    loadCharacter();
+    loadMessage();
+});
 </script>
 
 <template>
+    {{  currentMessage }}
     <!-- Loading -->
     <div v-if="loading">
         Loading...
@@ -234,6 +276,14 @@ onMounted(loadCharacter);
             </div>
 
             <div class="buttons">
+                <button
+                    v-if="currentMessage"
+                    class="message-button"
+                    :class="{ unread: hasUnreadMessages }"
+                    @click="openMessage(currentMessage)"
+                >
+                    Message
+                </button>
                 <button @click="openDiceRoller">
                     Dice Roller
                 </button>
@@ -608,19 +658,45 @@ onMounted(loadCharacter);
                         >
                             ×
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
     </div>
 
     <!-- Not found -->
     <div v-else>
         Character not found.
+    </div>
+
+    <div
+        v-if="message && showMessage"
+        class="message-overlay"
+    >
+        <div class="message-window">
+            <template v-if="loadingTransmission">
+                <div class="loading-screen">
+                    <div>TRANSMISSION RECEIVED</div>
+                    <div>SOURCE VERIFIED</div>
+                    <div>DECRYPTING...</div>
+                </div>
+            </template>
+
+            <template v-else>
+                <div class="message-header">
+                    INCOMING TRANSMISSION
+                </div>
+                <div class="message-meta">
+                    SOURCE: {{ message.sender }}
+                </div>
+                <div class="message-content">
+                    {{ message.content }}
+                </div>
+                <button class="close-button" @click="closeMessage">
+                    ACKNOWLEDGE
+                </button>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -1234,5 +1310,154 @@ section > div > span::after {
     color: #ff7070;
     box-shadow:
         0 0 10px rgba(224, 82, 82, 0.15);
+}
+
+
+
+.message-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(4px);
+
+    z-index: 1000;
+}
+
+.message-window {
+    width: min(700px, 90vw);
+
+    background: #0c1114;
+
+    border: 1px solid #35e0d0;
+
+    box-shadow:
+        0 0 30px rgba(53,224,208,.15);
+
+    font-family: "JetBrains Mono", monospace;
+
+    overflow: hidden;
+}
+
+.message-header {
+    padding: .75rem 1rem;
+
+    background: rgba(53,224,208,.08);
+
+    border-bottom: 1px solid #35e0d0;
+
+    color: #35e0d0;
+
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    font-size: .75rem;
+}
+
+.message-meta {
+    padding: 1rem;
+
+    color: #7b8d93;
+
+    border-bottom: 1px solid #26343a;
+
+    font-size: .8rem;
+}
+
+.message-content {
+    padding: 1.5rem;
+
+    color: #d5e1e4;
+
+    line-height: 1.7;
+
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    width: 100%;
+
+    border: none;
+    border-top: 1px solid #26343a;
+
+    background: #10171b;
+
+    color: #35e0d0;
+
+    padding: 1rem;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    letter-spacing: .15em;
+}
+
+.close-button:hover {
+    background: #123f3d;
+}
+
+.loading-screen {
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    color: #35e0d0;
+
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.close-button {
+    width: 100%;
+
+    display: block;
+
+    border: none;
+    border-top: 1px solid #26343a;
+
+    background: #10171b;
+    color: #35e0d0;
+
+    padding: 1rem;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    letter-spacing: .15em;
+
+    opacity: 1;
+}
+
+.message-button.unread {
+    animation: notificationPulse 2s infinite;
+}
+
+@keyframes notificationPulse {
+    0% {
+        border-color: #35e0d0;
+        box-shadow: 0 0 0 rgba(53,224,208,0);
+    }
+
+    50% {
+        border-color: #35e0d0;
+
+        box-shadow:
+            0 0 12px rgba(53,224,208,.5),
+            0 0 24px rgba(53,224,208,.25);
+    }
+
+    100% {
+        border-color: #35e0d0;
+        box-shadow: 0 0 0 rgba(53,224,208,0);
+    }
 }
 </style>

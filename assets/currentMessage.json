@@ -1,0 +1,11 @@
+{
+  "sender": "test sender",
+  "content": "test content",
+  "canSee": [
+    "ash"
+  ],
+  "hasOpened": [
+    "killian",
+    "ash"
+  ]
+}
