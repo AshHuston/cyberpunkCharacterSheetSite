@@ -29,6 +29,7 @@ RUN npm ci --omit=dev
 
 COPY server ./server
 COPY characters ./characters
+COPY assets ./assets
 
 COPY --from=build /app/dist ./dist
 
