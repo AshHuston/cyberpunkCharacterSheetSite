@@ -1,28 +1,57 @@
 {
-    "name": "ENTER NAME",
-    "description": "Enter Description",
+    "name": "Jack Hannigan",
+    "description": "My character was involved in a catastrophic accident a few years ago that left him critically injured. Large portions of his body had to be rebuilt with cybernetics, and the trauma left a permanent gap in his memory. He remembers his life clearly before the incident and remembers waking up in the hospital afterward, but roughly ten minutes surrounding the accident are completely missing.\n\nNo matter how hard he tries, those minutes are just gone.\n\nLately, though, he's started experiencing brief flashes of memory—fragments of sounds, faces, conversations, and places that seem connected to the accident. At first they appear random and meaningless, but as more pieces surface, it becomes clear that something significant happened during those missing ten minutes. Something important enough that the truth has stayed buried up to now.",
     "imageExtension": "png",
     "hits": 0,
     "xp": 0,
-    "conditions": [
-        
-    ],
+    "conditions": [],
     "equipment": [
-        
+        "Heavy Pistol (Accurate, Armor piercing)",
+        "Another Heavy Pistol (Accurate, Armor piercing)",
+        "Fedora",
+        "Trench Coat",
+        "Cyber Eye",
+        "Switchblade"
     ],
     "flaws": [
-
+        "The ends justify the means",
+        "Does not respect authority",
+        "Drinks and Smokes",
+        "Messy"
     ],
     "trademarks": [
         {
-            "name": "Street Kid",
+            "name": "Gunslinger",
             "features": [
-                "Sneak",
-                "Escape"
+                "(Edge) Quickdraw",
+                "Guns Akimbo",
+                "Targeter",
+                "Flourishes",
+                "Dodge"
+            ]
+        },
+        {
+            "name": "Cyber Eye",
+            "features": [
+                "(Edge) Notice",
+                "(Edge) Target Assist",
+                "Thermal Imaging",
+                "Camera"
+            ]
+        },
+        {
+            "name": "Detective",
+            "features": [
+                "Follow Leads",
+                "Bureaucracy",
+                "(Edge) Investigate",
+                "Find the truth",
+                "Research"
             ]
         }
     ],
-    "drive": "Enter Drive.",
+    "drive": "Figure out what happened in the hole in my memories",
     "stash": 0,
-    "stuntPoints": 0
+    "stuntPoints": 0,
+    "imageVersion": 1790954174957
 }

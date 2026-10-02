@@ -1,55 +1,55 @@
 {
-  "name": "ENTER NAME",
-  "description": "Enter Description",
-  "imageExtension": "png",
-  "hits": 0,
-  "xp": 0,
-  "conditions": [],
-  "equipment": [
-    "Cyber Arms (Crush)",
-    "Light Pistol (Deadly, Quick reload)",
-    "Stiletto blade"
-  ],
-  "flaws": [
-    "Perfectionist in his work",
-    "Sex, Drugs, & Rock-n-Roll",
-    "Aggressive and angry",
-    "Prideful. Will tie a loose end before admitting fault.",
-    "Friendly to the megacorps"
-  ],
-  "trademarks": [
-    {
-      "name": "Cyber Eyes",
-      "features": [
-        "Notice",
-        "Target Assist",
-        "Thermal Imaging",
-        "Camera",
-        "HUD"
-      ]
-    },
-    {
-      "name": "Gutter Scum",
-      "features": [
-        "I know these streets",
-        "Pick Pockets",
-        "Fight Dirty",
-        "Spot Danger",
-        "Shared Roots"
-      ]
-    },
-    {
-      "name": "High-end Hitman",
-      "features": [
-        "Sneak",
-        "Escape",
-        "One shot, one kill",
-        "Professional",
-        "Friendly to the right megacorps"
-      ]
-    }
-  ],
-  "drive": "Wants to be known as the best after he's gone",
-  "stash": 0,
-  "stuntPoints": 0
+    "name": "Reaper",
+    "description": "Enter Description",
+    "imageExtension": "png",
+    "hits": 0,
+    "xp": 0,
+    "conditions": [],
+    "equipment": [
+        "Cyber Arms (Crush)",
+        "Light Pistol (Deadly, Quick reload)",
+        "Stiletto blade"
+    ],
+    "flaws": [
+        "Perfectionist in his work",
+        "Sex, Drugs, & Rock-n-Roll",
+        "Aggressive and angry",
+        "Prideful. Will tie a loose end before admitting fault.",
+        "Friendly to the megacorps"
+    ],
+    "trademarks": [
+        {
+            "name": "Cyber Eyes",
+            "features": [
+                "Notice (edge)",
+                "Target Assist",
+                "Thermal Imaging",
+                "Camera",
+                "HUD"
+            ]
+        },
+        {
+            "name": "Gutter Scum",
+            "features": [
+                "I know these streets (edge)",
+                "Pick Pockets",
+                "Fight Dirty",
+                "Spot Danger",
+                "Shared Roots"
+            ]
+        },
+        {
+            "name": "High-end Hitman",
+            "features": [
+                "Sneak (edge)",
+                "Escape",
+                "One shot, one kill (edge)",
+                "Professional",
+                "Friendly to the right megacorps"
+            ]
+        }
+    ],
+    "drive": "Wants to be known as the best after he's gone",
+    "stash": 0,
+    "stuntPoints": 0
 }
